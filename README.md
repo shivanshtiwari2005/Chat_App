@@ -26,32 +26,46 @@ Features:
 
 ## Configure Flutter project with Firebase
 From your project root:
-```
+
 flutter pub get
 dart pub global activate flutterfire_cli
 flutterfire configure
-```
-Follow prompts and include the platforms you need. This generates `lib/firebase_options.dart`. Replace the placeholder file included here.
+## Tech Stack
 
-## Run
-1. `flutter pub get`
-2. Start two emulators.
-3. Run app on Emulator A:
-   - Tap **Seed dummy users** (only once)
-   - Choose **Alice**
-4. Run app on Emulator B:
-   - Choose **Bob**
-5. On either emulator open the other user's chat and send messages.
-   - When you send, message doc is created with `status: "sent"` → UI shows ✅
-   - When the recipient's client sees the doc (Stream), it updates `status: "delivered"` → UI shows ✅✅
+Flutter: Frontend framework
 
-## Firestore Structure
-- `users/{uid}`: { uid, name, isOnline, lastSeen }
-- `chats/{chatId}/messages/{msg}`: { senderId, receiverId, text, timestamp, status }
+Dart: Programming language
 
-## RTDB Structure
-- `status/{uid}`: { state: "online"|"offline", lastSeen: SERVER_TIMESTAMP }
+Firebase Authentication: User login
 
-## Notes
-- Replace firebase_options.dart with generated file from flutterfire configure.
-- For production, secure Firestore and RTDB rules appropriately.
+Cloud Firestore: Real-time message storage
+
+Firebase Realtime Database: Presence tracking
+
+Firebase Cloud Messaging (FCM): Message delivery
+
+Provider : State management
+
+##Project Structure
+
+lib/
+ ├─ main.dart
+ ├─ firebase_options.dart           
+ ├─ providers.dart
+ ├─ utils/
+ │   ├─ chat_id.dart
+ │   └─ time_ago.dart
+ ├─ models/
+ │   ├─ app_user.dart
+ │   └─ message.dart
+ ├─ services/
+ │   ├─ user_repository.dart
+ │   ├─ chat_repository.dart
+ │   └─ presence_service.dart
+ ├─ screens/
+ │   ├─ select_user_screen.dart
+ │   ├─ users_list_screen.dart
+ │   └─ chat_screen.dart
+ └─ widgets/
+     └─ message_bubble.dart
+
